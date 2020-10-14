@@ -1,0 +1,64 @@
+// Define various sections
+section monte_carlo
+// Statistics block specifies information to Spectre simulator about the type of distribution in the model parameter, such as Gaussian, Uniform etc, along-with all the sigma values to be used in the Monte-Carlo simulation. The sigma values can be given as absolute or relative (in percent) w.r.t the mean/average value. The statement "truncate tr=nsig" is used to specify the coverage of the distribution to '+/- nsig*sigma' values, e.g. +/- 3*sigma for nsig=3 as in the code below, which simulates the six sigma variation in the model parameters about their mean.
+statistics {
+     process {
+          vary voff_dev dist=gauss std=0.4/3
+          vary rdc_dev  dist=gauss std=40.2032e-3/3
+          vary rsc_dev  dist=gauss std=10.2672e-3/3
+          vary rss0_dev dist=gauss std=6.8e-3/3
+          vary rdd0_dev dist=gauss std=13.248e-3/3
+          vary rgc_dev   dist=gauss std=25 percent=yes
+          vary cgdo_dev dist=gauss std=25 percent=yes
+          vary cgso_dev dist=gauss std=25 percent=yes
+          vary cdso_dev dist=gauss std=25 percent=yes
+             }
+
+     truncate tr=3.0
+}
+endsection monte_carlo
+
+section as_measured
+parameters   res_fac=1
+parameters   vth_fac=1
+parameters   cgdo_fac=1
+parameters   cgso_fac=1
+parameters   cdso_fac=1
+parameters   cgdl_fac=1
+endsection as_measured
+
+section typical
+parameters   res_fac=0.906
+parameters   vth_fac=0.944
+parameters   cgdo_fac=0.85
+parameters   cgso_fac=0.7877
+parameters   cdso_fac=0.7033
+parameters   cgdl_fac=0.911
+endsection typical
+
+section fast
+parameters   res_fac=0.5748
+parameters   vth_fac=0.777
+parameters   cgdo_fac=0.85
+parameters   cgso_fac=0.7877
+parameters   cdso_fac=0.7033
+parameters   cgdl_fac=0.911
+endsection fast
+
+section slow
+parameters   res_fac=1.233
+parameters   vth_fac=1.167
+parameters   cgdo_fac=0.85
+parameters   cgso_fac=0.7877
+parameters   cdso_fac=0.7033
+parameters   cgdl_fac=0.911
+endsection slow
+
+section coss_loss
+parameters   res_fac=1
+parameters   vth_fac=1
+parameters   cgdo_fac=0.89
+parameters   cgso_fac=1
+parameters   cdso_fac=0.89
+parameters   cgdl_fac=1
+endsection coss_loss
